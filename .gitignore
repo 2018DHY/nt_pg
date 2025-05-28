@@ -1,0 +1,7 @@
+*.user.*
+*.user
+*~
+build-*
+*.kate-swp
+/build
+/.vscode
