@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+//update
+
 int main(int argc, char *argv[]){
     struct addrinfo hints,*res,*p;
     int status;
