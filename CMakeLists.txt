@@ -7,3 +7,6 @@ target_compile_options(showip PRIVATE "-std=gnu99")
 
 add_executable(server simple_server.c)
 target_compile_options(server PRIVATE "-std=gnu99")
+
+add_executable(poll_server poll_server.c)
+target_compile_options(server PRIVATE "-std=gnu99")
