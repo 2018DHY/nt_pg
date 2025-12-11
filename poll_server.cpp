@@ -12,7 +12,7 @@
 #define PORT "9034"
 
 const char *inet_ntop2(void *addr,char*buf,size_t size){
-    struct sockaddr_storage *sas=addr;
+    struct sockaddr_storage *sas=(struct sockaddr_storage *)addr;
     struct sockaddr_in *sa4;
     struct sockaddr_in6 *sa6;
 
@@ -21,11 +21,11 @@ const char *inet_ntop2(void *addr,char*buf,size_t size){
     switch (sas->ss_family)
     {
     case AF_INET:
-        sa4=addr;
+        sa4=(struct sockaddr_in *)addr;
         src=&(sa4->sin_addr);
         break;
         case AF_INET6:
-        sa6=addr;
+        sa6=(struct sockaddr_in6 *)addr;
         src=&(sa6->sin6_addr);
         break;
     
@@ -91,7 +91,7 @@ void add_to_pfds(struct pollfd *pfds[],int newfd,int *fd_count,int *fd_size){
     if(*fd_count == *fd_size){
         *fd_size *=2;
 
-        *pfds=realloc(*pfds,sizeof(**pfds)*(*fd_size));
+        *pfds=(struct pollfd *)realloc(*pfds,sizeof(**pfds)*(*fd_size));
     }
 
     (*pfds)[*fd_count].fd=newfd;
@@ -181,7 +181,7 @@ int main(void){
 
     int fd_size=5;
     int fd_count=0;
-    struct pollfd *pfds=malloc(sizeof(*pfds)*fd_size);
+    struct pollfd *pfds=(struct pollfd *)malloc(sizeof(*pfds)*fd_size);
 
     listener = get_listener_socket();
 
