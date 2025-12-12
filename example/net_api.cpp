@@ -49,11 +49,23 @@ void byt_seq_test()
  */
 
  /**
-  * socket 获得一个套接字 
+  * socket 创建套接字 
   * 头文件 #include <sys/socket.h>
   * 
   * int socket(int domain, int type, int protocol);
+  * domain: AF_UNIX      Local communication
+  *         AF_LOCAL     Synonym for AF_UNIX
+  *         AF_INET      IPv4 Internet protocols
   * 
+  * type:
+  * SOCK_STREAM    Provides   sequenced,   reliable,   two-way,  connection-based  byte
+  *                streams.  An out-of-band data transmission  mechanism  may  be  sup‐
+  *                ported.                                                             
+  *                                                                                         
+  * SOCK_DGRAM      Supports  datagrams  (connectionless, unreliable messages of a fixed
+  *                 maximum length).
+  * 
+  * protocol:default = 0
   */
 
  void str_to_int_test(){
