@@ -23,6 +23,28 @@ int getaddrinfo(const char *node, // 例如： "www.example.com" 或 IP
                 struct addrinfo **res);
 */
 
+/*
+将addr中存储的地址端口转化到host,serv变量中
+int getnameinfo(const struct sockaddr *restrict addr, socklen_t addrlen,
+                       char host[_Nullable restrict .hostlen],
+                       socklen_t hostlen,
+                       char serv[_Nullable restrict .servlen],
+                       socklen_t servlen,
+                       int flags);
+返回值 0 表示正常
+addr	const struct sockaddr *	指向要转换的套接字地址结构
+addrlen	socklen_t	地址结构的长度
+host	char *	用于存储主机名的缓冲区
+hostlen	socklen_t	主机名缓冲区长度
+serv	char *	用于存储服务名（端口）的缓冲区
+servlen	socklen_t	服务名缓冲区长度
+flags	int	控制函数行为的标志位
+NI_NUMERICHOST	始终返回数字形式的IP地址（不进行DNS反向解析）
+NI_NUMERICSERV	返回端口号而非服务名
+NI_NAMEREQD	如果无法解析主机名，返回错误
+NI_DGRAM    以UDP模式翻译服务名
+*/
+
 // update
 
 static char ip4_str[] = "IPv4";
@@ -73,7 +95,7 @@ int main(int argc, char *argv[])
                 s = getnameinfo(ifa->ifa_addr,
                                 (family == AF_INET) ? sizeof(struct sockaddr_in) : sizeof(struct sockaddr_in6),
                                 host, NI_MAXHOST,
-                                NULL, 0, NI_NUMERICHOST);
+                                NULL, 0, NI_NUMERICHOST); // 不查询DNS
 
                 if (s != 0)
                 {
